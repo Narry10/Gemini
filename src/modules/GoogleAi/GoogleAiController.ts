@@ -1,4 +1,4 @@
-import { Controller, Get, Query, NotFoundException, InternalServerErrorException, Post } from '@nestjs/common';
+import { Controller, Get, Query, NotFoundException, InternalServerErrorException, Post, Body } from '@nestjs/common';
 import { GoogleAiService } from 'src/shares/sevicers/GoogleAiService';
 
 
@@ -7,7 +7,7 @@ export class GoogleAiController {
   constructor(private readonly googleAiService: GoogleAiService) {}
 
   @Post('generateBase')
-  async generate(@Query('prompt') prompt: string): Promise<string> {
+  async generate(@Body('prompt') prompt: string): Promise<string> {
     try {
       const generatedText = await this.googleAiService.generateText(prompt);
       if (!generatedText) {
@@ -21,7 +21,7 @@ export class GoogleAiController {
   }
 
   @Post('generateGemini')
-  async generateGeminiPro(@Query('prompt') prompt: string): Promise<string> {
+  async generateGeminiPro(@Body('prompt') prompt: string): Promise<string> {
     try {
       const generatedGeminiProContent = await this.googleAiService.generateGeminiPro(prompt);
       if (!generatedGeminiProContent) {
